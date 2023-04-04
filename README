@@ -1,0 +1,60 @@
+Copyright Octavian Armasu 315CAa 2022 - 2023
+
+Editor de imagini in C, fara interfata grafica
+
+Vom folosi un sirul de caractere read[NMAX] de lungime 300 pentru a citi toata
+linia pe care se afla comanda. Vom extrage primul cuvant cu ajutorul functiei
+strtok si vom verifica ce comanda a fost primita. In functie de comanda, se vor
+verifica restul cuvintelor pentru a fi corect introduse.
+
+Funcionalitate
+
+Pentru a incarca o poza pe care doriti sa o editati folositi comanda LOAD,
+urmata de numele pozei pe care o doriti. Pot fi incarcate doua tipuri de poze:
+color sau grayscale. Pozele grayscale pot fi editate cu toate functiile, mai
+putin APPLY. Cele color pot fi editate fara functiile HISTOGRAM sau EQUALIZE.
+Daca se va incerca aplicarea unei functii pe o poza ce nu respecta cerinta,
+se va afisa un mesaj de eroare. De asemenea, daca va fi aplicata o comanda,
+dar nu s-a incarcat nicio poza in memorie se va afisa mesajul "No image
+loaded".
+
+Pentru a decupa o poza, puteti folosi functia SELECT pentru a va alege ce zona
+doriti sa decupati si dupa functia CROP. Daca folositi functia CROP fara a fi
+ales o zona de selectie, se va da CROP la toata imaginea.
+
+Pentru a salva o poza se va folosi comanda SAVE, urmata de unul sau doi
+parametri. Primul trebuie sa fie noul nume cu care vrem sa salvam poza, iar
+cel de al doilea este optional si poate fi "ascii", astfel indica in ce format
+vrem sa salvam matricea pixelilor in fisier. Daca al doilea parametru nu
+este introdus, atunci matricea se va salva in format binar.
+
+Functia APPLY se poate aplica unei zone de selectie(comanda select) sau pe 
+toata matricea pixelilor(select all). Exista 4 tipuri de parametri ce se pot da
+la aceasta functie: EDGE, SHARPEN, BLUR, GAUSSIAN_BLUR.
+
+Gandirea din spatele codului
+
+Dupa citirea liniei introduse de la tastatura se verifica ce comanda a fost
+introdusa. De exemplu, daca s-a introdus LOAD, variabila filename va lua
+valoarea celui de-al doilea cuvant citit(strcpy) si se va deschide fisierul
+cu acel nume.
+
+Pentru pozele RGB, am luat in interiorul structurii 3 matrice color(red, green,
+blue). Atunci cand citesc poza din fisier, verific magic number-ul si daca
+acesta corespunde unei poze color, atunci aloc cele 3 matrice cu dimensiunile
+din fisier(a.n si a.m) si matricea mare, formata din toti pixelii va fi
+alocata cu a.n si 3*a.m. De fiecare data cand se va efectua o operatie pe 
+o imagine color, se va efectua pe fiecare dintre matricele de culoare, iar
+la finalul executiei se va forma din nou matricea mare cu toate cele 3 matrice
+de culoare. Astfel, se va usura munca la SAVE, de exemplu, intrucat se va afisa
+in fisier doar matricea mare.
+
+Pentru functia CROP, de fiecare data dupa ce se va executa comanda cu succes, 
+coordonatele se vor schimba astfel: x1 si y1 devin 0 si x2 devine x2-x1 si 
+y2 devine y2-y1.
+
+Am folosit variabila contor la functiile HISTOGRAM, APPLY si SELECT pentru
+a verifica faptul ca s-au introdus toate datele si ca acestea sunt corect
+introduse pentru a efectua operatia. De exemplu, la HISTOGRAM daca variabila
+contor este diferita de 2, atunci se va afisa mesajul de eroare. 
+ 
