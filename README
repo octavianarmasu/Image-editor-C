@@ -2,6 +2,8 @@ Copyright Octavian Armasu 315CAa 2022 - 2023
 
 Editor de imagini in C, fara interfata grafica
 
+Imaginile trebuie sa fie in format PPM sau PGM
+
 Vom folosi un sirul de caractere read[NMAX] de lungime 300 pentru a citi toata
 linia pe care se afla comanda. Vom extrage primul cuvant cu ajutorul functiei
 strtok si vom verifica ce comanda a fost primita. In functie de comanda, se vor
